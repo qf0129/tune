@@ -15,14 +15,14 @@ const MenuItem = styled(NavLink)`
   cursor: pointer;
   border-radius: 2px;
   color: var(--main-text-color);
-  transition: all 0.25s ease;
+  transition: all 0.2s;
   &:hover {
-    background-color: #eee;
+    background-color: #f3f3f3;
     color: var(--main-text-color);
   }
   &.active {
     color: var(--main-color);
-    background-color: #ddd;
+    background-color: #eee;
   }
 `
 

@@ -1,6 +1,6 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Dropdown, type MenuProps } from 'antd'
-import { useMatch, useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import styled from 'styled-components'
 import api from '../api/api'
 import useApp from 'antd/es/app/useApp'
@@ -29,7 +29,7 @@ const MenuItem = styled.div`
   padding: 0 20px;
   transition: all 0.3s;
   cursor: pointer;
-  border-bottom: 4px solid transparent;
+  border-bottom: 3px solid transparent;
   user-select: none;
   &:hover {
     background-color: #eaeaea;
@@ -46,7 +46,7 @@ const UserBtn = styled.div`
   display: flex;
   align-items: center;
   padding: 0 20px;
-  transition: all 0.3s;
+  transition: all 0.2s;
   cursor: pointer;
   &:hover {
     background-color: #eaeaea;
@@ -57,8 +57,8 @@ export default () => {
   const app = useApp()
   const nav = useNavigate()
   const menus = [
-    { path: '/app', title: '应用发布' },
-    { path: '/console', title: '数据管理' },
+    { path: '/app', title: '应用部署' },
+    { path: '/console', title: '控制台' },
   ]
 
   const rightMenus: MenuProps['items'] = [
@@ -87,7 +87,7 @@ export default () => {
       <Logo>TUNE</Logo>
       <MenuGroup>
         {menus.map((item) => (
-          <MenuItem key={item.path} onClick={() => nav(item.path)} className={useMatch(item.path) ? 'active' : ''}>
+          <MenuItem key={item.path} onClick={() => nav(item.path)} className={useLocation().pathname.startsWith(item.path) ? 'active' : ''}>
             {item.title}
           </MenuItem>
         ))}

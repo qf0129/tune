@@ -166,6 +166,7 @@ export default function ModelTable<T>(props: ModelTableProps<T>) {
         cancelText="取消"
         onOk={submitCreate}
         onCancel={closeCreate}
+        width={800}
       >
         {props.createFields && props.createFields.length > 0 && (
           <Form form={createForm} labelCol={{ span: 4 }} style={{ margin: '20px 0' }} size="large">
