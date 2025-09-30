@@ -1,7 +1,9 @@
-import api from '../../api/api'
-import type { App } from '../../util/type'
-import ModelTable from '../../components/ModelTable'
-import PageView from '../../components/PageView'
+import api from '@/api/api'
+import type { App } from '@/util/type'
+import ModelTable from '@/components/ModelTable'
+import PageView from '@/components/PageView'
+import NiceModal from '@ebay/nice-modal-react'
+import AppUserModal from '@/components/modal/AppUserModal'
 
 export default () => {
   return (
@@ -26,6 +28,7 @@ export default () => {
           { title: '描述', key: 'Description' },
           { title: 'Git仓库', key: 'GitUrl' },
         ]}
+        operateBtns={[{ title: '用户管理', onClick: (record) => NiceModal.show(AppUserModal, { appUid: record.Uid }) }]}
         QueryFunc={(req) => api.QueryApp(req)}
         CreateFunc={(data) => api.CreateApp(data)}
         DeleteFunc={(data) => api.DeleteApp(data)}

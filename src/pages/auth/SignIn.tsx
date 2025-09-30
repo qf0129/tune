@@ -1,7 +1,7 @@
 import { Button, Form, Input } from 'antd'
 import { type FormProps } from 'antd/es/form/Form'
-import type { ReqAuth } from '../../api/api'
-import api from '../../api/api'
+import type { ReqAuth } from '@/api/api'
+import api from '@/api/api'
 import { useNavigate } from 'react-router'
 import useApp from 'antd/es/app/useApp'
 import styled from 'styled-components'
@@ -40,11 +40,11 @@ export default () => {
     <SignInRoot>
       <SignInCard>
         <Form onFinish={onFinish} size="large" labelCol={{ span: 4 }}>
-          <Form.Item<ReqAuth> label="Username" name="Username" rules={[{ required: true }]}>
+          <Form.Item<ReqAuth> label="账号" name="Username" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item<ReqAuth> label="Password" name="Password" rules={[{ required: true }]}>
-            <Input />
+          <Form.Item<ReqAuth> label="密码" name="Password" rules={[{ required: true }]}>
+            <Input.Password />
           </Form.Item>
           <Form.Item label={null}>
             <Button type="primary" htmlType="submit">

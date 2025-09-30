@@ -1,4 +1,4 @@
-import type { App, Env, GitAccount, Image, Release, User } from "../util/type";
+import type { App, Env, GitAccount, Image, Pod, Release, User } from "@/util/type";
 import request, { type PageObject, type Response } from "./request";
 
 export type ReqAuth = {
@@ -7,9 +7,24 @@ export type ReqAuth = {
 }
 
 export type ReqPage<T> = {
-  Page?: number;
-  PageSize?: number;
+  Page?: number
+  PageSize?: number
   Model?: T
+  OrderBy?: string
+}
+
+type ReqReleaseDeploy = {
+  ReleaseUid?: string
+  ConfigMode?: string
+  ConfigMountP?: string
+  Container?: any
+  ServiceSpec?: any
+}
+
+type ReqQueryPodLog = {
+  PodUid?: string
+  SinceSeconds?: number
+  TailLines?: number
 }
 
 export default {
@@ -24,6 +39,8 @@ export default {
   CreateApp: (data: App): Promise<Response<App>> => request.post('/api/CreateApp', data),
   DeleteApp: (data: App): Promise<Response<App>> => request.post('/api/DeleteApp', data),
   UpdateApp: (data: App): Promise<Response<App>> => request.post('/api/UpdateApp', data),
+  // QueryAppUser: (data: ReqQueryAppUser): Promise<Response<User[]>> => request.post('/api/QueryAppUser', data),
+  // DeleteAppUser: (data: ReqQueryAppUser): Promise<Response<ReqQueryAppUser>> => request.post('/api/DeleteAppUser', data),
   QueryEnv: (data: ReqPage<Env>): Promise<Response<PageObject<Env>>> => request.post('/api/QueryEnv', data),
   CreateEnv: (data: Env): Promise<Response<Env>> => request.post('/api/CreateEnv', data),
   DeleteEnv: (data: Env): Promise<Response<Env>> => request.post('/api/DeleteEnv', data),
@@ -36,6 +53,11 @@ export default {
   CreateRelease: (data: Release): Promise<Response<Release>> => request.post('/api/CreateRelease', data),
   DeleteRelease: (data: Release): Promise<Response<Release>> => request.post('/api/DeleteRelease', data),
   UpdateRelease: (data: Release): Promise<Response<Release>> => request.post('/api/UpdateRelease', data),
+  ReleaseBuild: (ReleaseUid: string): Promise<Response<Image>> => request.post('/api/ReleaseBuild', { ReleaseUid }),
+  ReleaseDeploy: (data: ReqReleaseDeploy): Promise<Response<boolean>> => request.post('/api/ReleaseDeploy', data),
+  ReleaseOffline: (ReleaseUid: string): Promise<Response<boolean>> => request.post('/api/ReleaseOffline', { ReleaseUid }),
+  QueryPod: (data: ReqPage<Pod>): Promise<Response<PageObject<Pod>>> => request.post('/api/QueryPod', data),
+  QueryPodLog: (data: ReqQueryPodLog): Promise<Response<string>> => request.post('/api/QueryPodLog', data),
   QueryUser: (data: ReqPage<User>): Promise<Response<PageObject<User>>> => request.post('/api/QueryUser', data),
   CreateUser: (data: User): Promise<Response<User>> => request.post('/api/CreateUser', data),
   DeleteUser: (data: User): Promise<Response<User>> => request.post('/api/DeleteUser', data),

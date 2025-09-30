@@ -1,7 +1,7 @@
-import PageView from '../../components/PageView'
-import api from '../../api/api'
-import type { Env } from '../../util/type'
-import ModelTable from '../../components/ModelTable'
+import PageView from '@/components/PageView'
+import api from '@/api/api'
+import type { Env } from '@/util/type'
+import ModelTable from '@/components/ModelTable'
 import TextArea from 'antd/es/input/TextArea'
 
 export default () => {

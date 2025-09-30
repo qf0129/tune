@@ -1,7 +1,7 @@
-import PageView from '../../components/PageView'
-import api from '../../api/api'
-import type { Release } from '../../util/type'
-import ModelTable from '../../components/ModelTable'
+import PageView from '@/components/PageView'
+import api from '@/api/api'
+import type { Release } from '@/util/type'
+import ModelTable from '@/components/ModelTable'
 
 export default () => {
   return (

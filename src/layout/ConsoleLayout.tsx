@@ -1,24 +1,37 @@
 import { NavLink, Outlet } from 'react-router'
 import styled from 'styled-components'
-import { Flex } from 'antd'
 import { consoleRoutes } from '../routes'
 
-const MenuList = styled.div`
-  width: 240px;
-  height: 100%;
-  padding: 10px 10px;
+const ConsoleLayout = styled.div`
+  display: flex;
 `
+const MenuList = styled.div`
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  width: 200px;
+  height: 100%;
+  padding: 10px;
+`
+
+const Content = styled.div`
+  padding: 10px;
+  flex: 1 0;
+  overflow: hidden;
+  flex-direction: column;
+`
+
 const MenuItem = styled(NavLink)`
   display: block;
   padding: 10px 20px;
   margin-top: 10px;
   cursor: pointer;
   border-radius: 2px;
-  color: var(--main-text-color);
+  color: var(--text-color);
   transition: all 0.2s;
   &:hover {
     background-color: #f3f3f3;
-    color: var(--main-text-color);
+    color: var(--text-color);
   }
   &.active {
     color: var(--main-color);
@@ -28,7 +41,7 @@ const MenuItem = styled(NavLink)`
 
 export default () => {
   return (
-    <Flex style={{ maxWidth: '1680px', margin: '0 auto' }}>
+    <ConsoleLayout>
       <MenuList>
         {consoleRoutes.map(
           (route) =>
@@ -39,9 +52,9 @@ export default () => {
             )
         )}
       </MenuList>
-      <div style={{ flex: 1 }}>
+      <Content>
         <Outlet />
-      </div>
-    </Flex>
+      </Content>
+    </ConsoleLayout>
   )
 }

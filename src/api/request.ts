@@ -18,7 +18,7 @@ const request: AxiosInstance = axios.create({
 });
 
 request.interceptors.response.use((response: AxiosResponse<any, any>) => {
-  console.log("ResponseData >>>", response.data);
+  console.log("RequestApi >>>", response.request.responseURL, response.data);
   if (response.data.Code != 0) {
     // message.warning(response.data.Msg);
     if (response.data.Code === 401002) {
