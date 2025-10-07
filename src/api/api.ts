@@ -1,15 +1,16 @@
-import type { App, Env, GitAccount, Image, Pod, Release, User } from "@/util/type";
-import request, { type PageObject, type Response } from "./request";
+import type { App, Env, GitAccount, Image, Pod, Release, User } from '@/util/type'
+import request, { type PageObject, type Response } from './request'
 
 export type ReqAuth = {
-  Username: string;
-  Password: string;
+  Username: string
+  Password: string
 }
 
 export type ReqPage<T> = {
   Page?: number
   PageSize?: number
   Model?: T
+  Filter?: Record<string, any>
   OrderBy?: string
 }
 
