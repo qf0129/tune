@@ -14,13 +14,6 @@ const MenuList = styled.div`
   padding: 10px;
 `
 
-const Content = styled.div`
-  padding: 10px;
-  flex: 1 0;
-  overflow: hidden;
-  flex-direction: column;
-`
-
 const MenuItem = styled(NavLink)`
   display: block;
   padding: 10px 20px;
@@ -39,6 +32,12 @@ const MenuItem = styled(NavLink)`
   }
 `
 
+const Content = styled.div`
+  padding: 10px;
+  flex: 1 0;
+  overflow: hidden;
+  flex-direction: column;
+`
 export default () => {
   return (
     <ConsoleLayout>

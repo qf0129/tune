@@ -1,4 +1,4 @@
-import { Radio, Spin, type RadioGroupProps } from 'antd'
+import { Radio, Skeleton, Spin, type RadioGroupProps } from 'antd'
 import { useEffect, useState } from 'react'
 import api from '@/api/api'
 import type { CheckboxOptionType } from 'antd/es/checkbox'
@@ -30,9 +30,9 @@ export default ({ showAll, value, onChange, ...rest }: EnvRadioProps) => {
     return setOptions([])
   }, [])
 
-  return (
-    <Spin spinning={loading}>
-      <Radio.Group options={options} value={value} onChange={onChange} optionType="button" {...rest} />
-    </Spin>
-  )
+  if (loading) {
+    return <Skeleton.Button active style={{ width: '400px' }} />
+  } else {
+    return <Radio.Group options={options} value={value} onChange={onChange} optionType="button" {...rest} />
+  }
 }

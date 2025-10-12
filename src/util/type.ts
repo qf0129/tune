@@ -5,6 +5,34 @@ export type BaseModel = {
   Mtime?: string
 }
 
+export type Project = BaseModel & {
+  Name?: string
+  Description?: string
+  CreatorUid?: string
+  Creator?: User
+  Owners?: User[]
+  Users?: User[]
+}
+
+export type Requirement = BaseModel & {
+  Title?: string
+  Content?: string
+  ProjectUid?: string
+  CreatorUid?: string
+  Creator?: User
+  Tasks?: RequirementTask[]
+}
+
+export type RequirementTask = BaseModel & {
+  Title?: string
+  Content?: string
+  Status?: string
+  WorkDays?: number
+  RequirementUid?: string
+  ReleaseUid?: string
+  Executors?: User[]
+}
+
 export type App = BaseModel & {
   Name?: string
   Description?: string

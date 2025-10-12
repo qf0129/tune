@@ -29,7 +29,7 @@ export default () => {
   }, [uid])
 
   return (
-    <PageView breadcrumbs={[{ title: '应用列表', href: '/app' }, { title: app?.Name }]} background="transport" padding="0">
+    <PageView breadcrumbs={[{ title: '应用列表', path: '/app' }, { title: app?.Name }]} background="transport" noShadow padding="0">
       <Tabs
         type="card"
         tabBarGutter={4}

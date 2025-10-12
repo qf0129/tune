@@ -1,7 +1,7 @@
 import PageView from '@/components/PageView'
 import api from '@/api/api'
-import type { App } from '@/util/type'
-import { useNavigate } from 'react-router'
+import type { App, Requirement } from '@/util/type'
+import { useNavigate, useParams } from 'react-router'
 import { Empty, Input, Table } from 'antd'
 import { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
@@ -15,29 +15,30 @@ const ExtraClass = createGlobalStyle`
 
 export default () => {
   const nav = useNavigate()
-  const [appKey, setAppKey] = useState('')
-  const [data, setData] = useState<App[]>([])
+  const [searchKey, setSearchKey] = useState('')
+  const [data, setData] = useState<Requirement[]>([])
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const { projectUid } = useParams()
 
   useEffect(() => {
     queryData(page, pageSize)
   }, [])
-  const changeAppKey = (k: string) => {
+  const changeSearchKey = (k: string) => {
     console.log(111, k)
-    setAppKey(k)
+    setSearchKey(k)
     queryData(page, pageSize, k)
   }
-  const queryData = (page: number, pageSize: number, appKey?: string) => {
+  const queryData = (page: number, pageSize: number, searchKey?: string) => {
     setLoading(true)
     let queryFilter = {}
-    if (appKey !== '') {
-      queryFilter = { 'Name:ct': appKey }
+    if (searchKey !== '') {
+      queryFilter = { project_uid: projectUid, 'Title:ct': searchKey }
     }
     api
-      .QueryApp({ Page: page, PageSize: pageSize, Filter: queryFilter })
+      .QueryRequirement({ Page: page, PageSize: pageSize, Filter: queryFilter })
       .then((res) => {
         if (res.Code === 0) {
           setData(res.Data.List)
@@ -53,13 +54,13 @@ export default () => {
 
   return (
     <PageView
-      breadcrumbs={[{ title: '应用列表' }]}
       padding="10px"
+      breadcrumbs={[{ title: '需求列表' }]}
       breadcrumbAction={
         <Input
-          value={appKey}
+          value={searchKey}
           prefix={<SearchOutlined />}
-          onChange={(e) => changeAppKey(e.target.value)}
+          onChange={(e) => changeSearchKey(e.target.value)}
           style={{ width: '400px' }}
           allowClear
           placeholder="搜索应用"
@@ -86,21 +87,21 @@ export default () => {
             showTotal: (total) => `共 ${total} 条`,
           }}
           columns={[
-            { title: '应用名', dataIndex: 'Name', key: 'Name' },
-            { title: '描述', dataIndex: 'Description', key: 'Description' },
-            { title: 'Git仓库', dataIndex: 'GitUrl', key: 'GitUrl' },
+            { title: '标题', dataIndex: 'Title', key: 'Title' },
+            { title: '创建人', key: 'Creator.Username', render: (_, record) => record?.Creator?.Username || '' },
+            { title: '创建时间', dataIndex: 'Ctime', key: 'Ctime' },
           ]}
           rowClassName={() => 'tableRow'}
           onRow={(record) => {
             return {
               onClick: () => {
-                nav(`/app/${record.Uid}`)
+                nav(`/requirement/${record.Uid}`)
               },
             }
           }}
         />
       ) : (
-        <Empty description={'没有找到应用'} />
+        <Empty description={'没有数据'} />
       )}
     </PageView>
   )

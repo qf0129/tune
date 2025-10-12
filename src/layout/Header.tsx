@@ -64,6 +64,7 @@ export default () => {
   const app = useApp()
   const nav = useNavigate()
   const menus = [
+    { path: '/project', title: '项目需求' },
     { path: '/app', title: '应用部署' },
     { path: '/console', title: '控制台' },
   ]

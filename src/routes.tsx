@@ -18,6 +18,9 @@ import AppDetailPipeline from './pages/app/detail/AppDetailPipeline'
 import AppDetailImage from './pages/app/detail/AppDetailImage'
 import AppDetailReleaseDetail from './pages/app/detail/AppDetailReleaseDetail'
 import Pod from './pages/console/Pod'
+import Project from './pages/project/Project'
+import RequirementList from './pages/project/RequirementList'
+import RequirementDetail from './pages/project/RequirementDetail'
 
 export const consoleRoutes: RouteObject[] = [
   { index: true, element: <Navigate to="app" replace /> },
@@ -30,15 +33,6 @@ export const consoleRoutes: RouteObject[] = [
   { path: 'user', element: <User />, handle: { title: '用户列表' } },
 ]
 
-export const appDetailRoutes: RouteObject[] = [
-  { index: true, element: <Navigate to="release" replace /> },
-  { path: 'release', element: <AppDetailRelease /> },
-  { path: 'config', element: <AppDetailConfig /> },
-  { path: 'image', element: <AppDetailImage /> },
-  { path: 'pipeline', element: <AppDetailPipeline /> },
-  { path: 'setting', element: <AppDetailSetting /> },
-]
-
 export const routes: RouteObject[] = [
   { index: true, element: <Navigate to="/app" replace /> },
   { path: 'signin', element: <SignIn /> },
@@ -46,11 +40,28 @@ export const routes: RouteObject[] = [
   {
     element: <RootLayout />,
     children: [
+      { path: 'project', element: <Project /> },
+      {
+        path: 'project/:projectUid',
+        element: <Project />,
+        children: [
+          { index: true, element: <Navigate to="requirement" replace /> },
+          { path: 'requirement', element: <RequirementList /> },
+        ],
+      },
+      { path: 'requirement/:requirementUid', element: <RequirementDetail /> },
       { path: 'app', element: <AppList /> },
       {
         path: 'app/:appUid',
         element: <AppDetail />,
-        children: appDetailRoutes,
+        children: [
+          { index: true, element: <Navigate to="release" replace /> },
+          { path: 'release', element: <AppDetailRelease /> },
+          { path: 'config', element: <AppDetailConfig /> },
+          { path: 'image', element: <AppDetailImage /> },
+          { path: 'pipeline', element: <AppDetailPipeline /> },
+          { path: 'setting', element: <AppDetailSetting /> },
+        ],
       },
       {
         path: 'app/:appUid/release/:releaseUid',

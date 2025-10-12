@@ -8,7 +8,7 @@ import Column from 'antd/es/table/Column'
 import { useNavigate, useParams } from 'react-router'
 import EnvRadio from '@/components/select/EnvRadio'
 import Link from 'antd/es/typography/Link'
-import { EllipsisOutlined } from '@ant-design/icons'
+import { EllipsisOutlined, GlobalOutlined } from '@ant-design/icons'
 import useApp from 'antd/es/app/useApp'
 import ImageStatusTag from '@/components/tag/ImageStatusTag'
 import EnvTag from '@/components/tag/EnvTag'
@@ -86,6 +86,19 @@ export default () => {
           )}
         />
         <Column title="实例数量" key="ReplicaCount" dataIndex="ReplicaCount" />
+        <Column
+          title="访问"
+          key="Visit"
+          render={(record: Release) => {
+            if (record.Status === 'running') {
+              return (
+                <Link target="_blank" href={`http://${record.Name}.${record.Env?.Domain}`}>
+                  <GlobalOutlined />
+                </Link>
+              )
+            }
+          }}
+        />
         <Column title="状态" key="Status" dataIndex="Status" />
         <Column
           width={200}

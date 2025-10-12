@@ -1,4 +1,4 @@
-import type { App, Env, GitAccount, Image, Pod, Release, User } from '@/util/type'
+import type { App, Env, GitAccount, Image, Pod, Project, Release, Requirement, User } from '@/util/type'
 import request, { type PageObject, type Response } from './request'
 
 export type ReqAuth = {
@@ -63,4 +63,6 @@ export default {
   CreateUser: (data: User): Promise<Response<User>> => request.post('/api/CreateUser', data),
   DeleteUser: (data: User): Promise<Response<User>> => request.post('/api/DeleteUser', data),
   UpdateUser: (data: User): Promise<Response<User>> => request.post('/api/UpdateUser', data),
+  QueryProject: (data: ReqPage<Project>): Promise<Response<PageObject<Project>>> => request.post('/api/QueryProject', data),
+  QueryRequirement: (data: ReqPage<Requirement>): Promise<Response<PageObject<Requirement>>> => request.post('/api/QueryRequirement', data),
 }

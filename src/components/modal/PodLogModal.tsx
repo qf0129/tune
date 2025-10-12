@@ -20,8 +20,8 @@ export default NiceModal.create(({ podUid }: PodLogModalProps) => {
   }, [podUid])
 
   return (
-    <Modal title="查看日志" open={modal.visible} onCancel={() => modal.hide()} afterClose={() => modal.remove()} width={'70%'}>
-      <code>{logs}</code>
+    <Modal title="查看日志" open={modal.visible} onCancel={() => modal.hide()} afterClose={() => modal.remove()} width={'80%'}>
+      <pre style={{ height: '400px', overflow: 'auto' }}>{logs}</pre>
     </Modal>
   )
 })

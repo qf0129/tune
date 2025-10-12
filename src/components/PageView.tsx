@@ -1,21 +1,21 @@
-import { Breadcrumb, Flex } from 'antd'
-import type { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
+import { Flex, Skeleton } from 'antd'
 import { type ReactNode } from 'react'
 import './PageView.css'
 import { Link } from 'react-router'
+import Breadcrumb, { type BreadcrumbItem } from './Breadcrumb'
 
 type PageViewProp = {
-  title?: string
-  titleAction?: ReactNode
   limitWidth?: string
   margin?: string
   padding?: string
   background?: string
-  breadcrumbs?: ItemType[]
+  noShadow?: boolean
+  breadcrumbs?: BreadcrumbItem[]
+  breadcrumbAction?: ReactNode
   children: ReactNode
 }
 
-export default ({ title, titleAction, limitWidth, margin, padding, background, breadcrumbs, children }: PageViewProp) => {
+export default ({ limitWidth, margin, padding, background, noShadow, breadcrumbs, breadcrumbAction, children }: PageViewProp) => {
   return (
     <div
       style={{
@@ -27,28 +27,26 @@ export default ({ title, titleAction, limitWidth, margin, padding, background, b
       }}
       className="page-fade-in"
     >
-      {breadcrumbs && (
-        <Breadcrumb
-          items={breadcrumbs}
-          style={{ padding: '12px 8px' }}
-          itemRender={(item) => (item.href ? <Link to={item.href}>{item.title || '-'}</Link> : item.title)}
-        />
-      )}
-      {(title || titleAction) && (
-        <Flex style={{ padding: '8px' }}>
-          {title && (
-            <Flex flex={1} style={{ fontSize: 20, padding: '5px 10px' }}>
-              {title}
-            </Flex>
-          )}
-          {titleAction && (
+      {(breadcrumbs || breadcrumbAction) && (
+        <Flex style={{ padding: '8px' }} align="center">
+          {breadcrumbs && <Breadcrumb items={breadcrumbs} />}
+          <div style={{ flex: 1 }} />
+          {breadcrumbAction && (
             <Flex justify="right" align="center" gap={10}>
-              {titleAction}
+              {breadcrumbAction}
             </Flex>
           )}
         </Flex>
       )}
-      <div style={{ backgroundColor: background || '#fff', padding: padding || '16px' }}>{children}</div>
+      <div
+        style={{
+          backgroundColor: background || '#fff',
+          padding: padding || '16px',
+          boxShadow: noShadow ? 'none' : '0 1px 2px 0 rgba(0, 0, 0, 0.03),0 1px 6px -1px rgba(0, 0, 0, 0.02),0 2px 4px 0 rgba(0, 0, 0, 0.02)',
+        }}
+      >
+        {children}
+      </div>
     </div>
   )
 }
