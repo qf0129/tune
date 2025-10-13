@@ -47,9 +47,9 @@ export const routes: RouteObject[] = [
         children: [
           { index: true, element: <Navigate to="requirement" replace /> },
           { path: 'requirement', element: <RequirementList /> },
+          { path: 'requirement/:requirementUid', element: <RequirementDetail /> },
         ],
       },
-      { path: 'requirement/:requirementUid', element: <RequirementDetail /> },
       { path: 'app', element: <AppList /> },
       {
         path: 'app/:appUid',

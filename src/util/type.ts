@@ -17,6 +17,8 @@ export type Project = BaseModel & {
 export type Requirement = BaseModel & {
   Title?: string
   Content?: string
+  ProjectId?: number
+  Status?: string
   ProjectUid?: string
   CreatorUid?: string
   Creator?: User

@@ -69,39 +69,35 @@ export default () => {
     >
       <ExtraClass />
 
-      {data.length > 0 ? (
-        <Table
-          dataSource={data}
-          loading={loading}
-          style={{ width: '100%' }}
-          rowKey={(record) => record.Uid || ''}
-          rowHoverable
-          pagination={{
-            total: total,
-            pageSize,
-            current: page,
-            onChange: (page, pageSize) => {
-              queryData(page, pageSize)
+      <Table
+        dataSource={data}
+        loading={loading}
+        style={{ width: '100%' }}
+        rowKey={(record) => record.Uid || ''}
+        rowHoverable
+        pagination={{
+          total: total,
+          pageSize,
+          current: page,
+          onChange: (page, pageSize) => {
+            queryData(page, pageSize)
+          },
+          showTotal: (total) => `共 ${total} 条`,
+        }}
+        columns={[
+          { title: '应用名', dataIndex: 'Name', key: 'Name' },
+          { title: '描述', dataIndex: 'Description', key: 'Description' },
+          { title: 'Git仓库', dataIndex: 'GitUrl', key: 'GitUrl' },
+        ]}
+        rowClassName={() => 'tableRow'}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              nav(`/app/${record.Uid}`)
             },
-            showTotal: (total) => `共 ${total} 条`,
-          }}
-          columns={[
-            { title: '应用名', dataIndex: 'Name', key: 'Name' },
-            { title: '描述', dataIndex: 'Description', key: 'Description' },
-            { title: 'Git仓库', dataIndex: 'GitUrl', key: 'GitUrl' },
-          ]}
-          rowClassName={() => 'tableRow'}
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                nav(`/app/${record.Uid}`)
-              },
-            }
-          }}
-        />
-      ) : (
-        <Empty description={'没有找到应用'} />
-      )}
+          }
+        }}
+      />
     </PageView>
   )
 }

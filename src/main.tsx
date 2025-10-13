@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { routes } from './routes'
 import { StrictMode } from 'react'
-import { App, ConfigProvider, type ThemeConfig } from 'antd'
+import { App, ConfigProvider, Empty, type GetProp, type ThemeConfig } from 'antd'
 import NiceModal from '@ebay/nice-modal-react'
 
 const customTheme: ThemeConfig = {
@@ -19,10 +19,14 @@ const customTheme: ThemeConfig = {
   },
 }
 
+const renderEmpty: GetProp<typeof ConfigProvider, 'renderEmpty'> = () => {
+  return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="" />
+}
+
 const router = createBrowserRouter(routes)
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ConfigProvider theme={customTheme}>
+    <ConfigProvider theme={customTheme} renderEmpty={renderEmpty}>
       <App>
         <NiceModal.Provider>
           <RouterProvider router={router} />

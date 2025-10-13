@@ -25,12 +25,12 @@ const MenuItem = styled(NavLink)`
   color: var(--text-color);
   transition: all 0.2s;
   &:hover {
-    background-color: #f3f3f3;
+    background-color: #dadada44;
     color: var(--text-color);
   }
   &.active {
     color: var(--main-color);
-    background-color: #eee;
+    background-color: #dadada88;
   }
 `
 
