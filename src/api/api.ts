@@ -1,4 +1,4 @@
-import type { App, Env, GitAccount, Image, Pod, Project, Release, Requirement, User } from '@/util/type'
+import type { App, Env, GitAccount, Image, Pod, Project, Release, Requirement, RequirementCategory, User } from '@/util/type'
 import request, { type PageObject, type Response } from './request'
 
 export type ReqAuth = {
@@ -26,6 +26,16 @@ type ReqQueryPodLog = {
   PodUid?: string
   SinceSeconds?: number
   TailLines?: number
+}
+
+type ReqQueryProjectUser = {
+  ProjectUid: string
+  SearchKey?: string
+  PageSize?: number
+}
+type ReqQueryProjectCategory = {
+  ProjectUid: string
+  SearchKey?: string
 }
 
 export default {
@@ -64,5 +74,8 @@ export default {
   DeleteUser: (data: User): Promise<Response<User>> => request.post('/api/DeleteUser', data),
   UpdateUser: (data: User): Promise<Response<User>> => request.post('/api/UpdateUser', data),
   QueryProject: (data: ReqPage<Project>): Promise<Response<PageObject<Project>>> => request.post('/api/QueryProject', data),
+  QueryProjectUser: (data: ReqQueryProjectUser): Promise<Response<PageObject<User>>> => request.post('/api/QueryProjectUser', data),
+  QueryProjectCategory: (data: ReqQueryProjectCategory): Promise<Response<RequirementCategory[]>> => request.post('/api/QueryProjectCategory', data),
   QueryRequirement: (data: ReqPage<Requirement>): Promise<Response<PageObject<Requirement>>> => request.post('/api/QueryRequirement', data),
+  CreateRequirement: (data: Requirement): Promise<Response<Requirement>> => request.post('/api/CreateRequirement', data),
 }

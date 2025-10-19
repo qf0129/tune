@@ -17,12 +17,22 @@ export type Project = BaseModel & {
 export type Requirement = BaseModel & {
   Title?: string
   Content?: string
-  ProjectId?: number
+  Priority?: number
   Status?: string
   ProjectUid?: string
   CreatorUid?: string
+  CategoryUid?: string
+  PmUid?: string
+  DeveloperUid?: string
+  TesterUid?: string
   Creator?: User
+  Category?: RequirementCategory
   Tasks?: RequirementTask[]
+}
+
+export type RequirementCategory = BaseModel & {
+  Name?: string
+  ProjectUid?: string
 }
 
 export type RequirementTask = BaseModel & {

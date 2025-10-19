@@ -1,7 +1,7 @@
 import PageView from '@/components/PageView'
 import type { App, Pod, Release } from '@/util/type'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import api from '@/api/api'
 import useApp from 'antd/es/app/useApp'
 import ModelTable from '@/components/ModelTable'
@@ -59,23 +59,25 @@ export default () => {
           size="small"
           bordered
           items={[
-            { label: '部署名称', children: release?.Name },
             { label: '应用名称', children: app?.Name },
-            { label: '部署状态', children: release?.Status },
+            { label: '部署名称', children: release?.Name },
+            { label: '部署环境', children: release?.Env?.Name },
             { label: '应用分支', children: release?.Branch },
             { label: '部署描述', children: release?.Description },
             { label: '自动构建', children: release?.AutoBuild ? '是' : '否' },
-            { label: '环境', children: release?.Env?.Name },
+            { label: '部署状态', children: release?.Status },
+            {
+              label: '链接',
+              children: <Link target="_blank" to={`http://${release?.Name}.${release?.Env?.Domain}`}>{`${release?.Name}.${release?.Env?.Domain}`}</Link>,
+            },
           ]}
         />
         <Space style={{ marginTop: 16 }}>
-          <Button type="primary">{release?.ImageUid ? '重新构建' : '构建'}</Button>
+          <Button type="primary">构建</Button>
           <Button type="primary">部署</Button>
           <Button>更新</Button>
           <Button>重启</Button>
-          <Button type="text" danger>
-            下线
-          </Button>
+          <Button danger>下线</Button>
         </Space>
       </Card>
       <Card title="Pod列表" variant="borderless" style={{ marginTop: 16 }}>
@@ -91,7 +93,7 @@ export default () => {
           operateBtns={[
             {
               title: '重启',
-              onClick: (record) => {},
+              onClick: () => {},
             },
             {
               title: '日志',

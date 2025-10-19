@@ -6,6 +6,8 @@ import { Button, Flex, Input, Table } from 'antd'
 import { useEffect, useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { EditFilled, SearchOutlined } from '@ant-design/icons'
+import NiceModal from '@ebay/nice-modal-react'
+import RequirementEditModal from './components/RequirementEditModal'
 
 const ExtraClass = createGlobalStyle`
   .tableRow {
@@ -117,7 +119,19 @@ export default () => {
     <PageView padding="10px" margin="10px">
       <ExtraClass />
       <Flex style={{ marginBottom: 12 }}>
-        <Button type="primary">新建需求</Button>
+        <Button
+          type="primary"
+          onClick={() =>
+            NiceModal.show(RequirementEditModal, {
+              projectUid: projectUid,
+              onClose: () => {
+                queryData(page, pageSize)
+              },
+            })
+          }
+        >
+          新建需求
+        </Button>
         <div style={{ flex: 1 }} />
         <Input
           value={searchKey}
@@ -125,7 +139,7 @@ export default () => {
           onChange={(e) => changeSearchKey(e.target.value)}
           style={{ width: '400px' }}
           allowClear
-          placeholder="搜索需求"
+          placeholder="搜索标题"
         />
       </Flex>
       <Table<Requirement>

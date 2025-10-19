@@ -1,4 +1,4 @@
-import { Radio, Skeleton, Spin, type RadioGroupProps } from 'antd'
+import { Radio, Skeleton, type RadioGroupProps } from 'antd'
 import { useEffect, useState } from 'react'
 import api from '@/api/api'
 import type { CheckboxOptionType } from 'antd/es/checkbox'
