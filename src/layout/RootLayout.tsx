@@ -11,17 +11,23 @@ export default () => {
   const Body = styled.div`
     width: 100%;
     height: calc(100% - 50px);
-    overflow-y: auto;
+    overflow: auto;
     scrollbar-width: thin;
     scrollbar-color: #ccc transparent;
-    scrollbar-gutter: stable;
+    /* scrollbar-gutter: stable; */
+  `
+  const Limiter = styled.div`
+    max-width: 1600px;
+    margin: 0 auto;
   `
 
   return (
     <RootLayout>
       <Header />
       <Body>
-        <Outlet />
+        <Limiter>
+          <Outlet />
+        </Limiter>
       </Body>
     </RootLayout>
   )

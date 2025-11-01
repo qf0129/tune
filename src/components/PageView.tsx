@@ -1,11 +1,9 @@
-import { Flex, Skeleton } from 'antd'
+import { Flex } from 'antd'
 import { type ReactNode } from 'react'
 import './PageView.css'
-import { Link } from 'react-router'
 import Breadcrumb, { type BreadcrumbItem } from './Breadcrumb'
 
 type PageViewProp = {
-  limitWidth?: string
   margin?: string
   padding?: string
   background?: string
@@ -15,7 +13,7 @@ type PageViewProp = {
   children: ReactNode
 }
 
-export default ({ limitWidth, margin, padding, background, noShadow, breadcrumbs, breadcrumbAction, children }: PageViewProp) => {
+export default ({ margin, padding, background, noShadow, breadcrumbs, breadcrumbAction, children }: PageViewProp) => {
   return (
     <div
       style={{
@@ -23,7 +21,6 @@ export default ({ limitWidth, margin, padding, background, noShadow, breadcrumbs
         margin: margin,
         marginLeft: 'auto',
         marginRight: 'auto',
-        maxWidth: limitWidth ? limitWidth : '1440px',
       }}
       className="page-fade-in"
     >

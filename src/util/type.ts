@@ -37,6 +37,7 @@ export type RequirementCategory = BaseModel & {
 
 export type RequirementTask = BaseModel & {
   Title?: string
+  Type?: string
   Content?: string
   Status?: string
   WorkDays?: number

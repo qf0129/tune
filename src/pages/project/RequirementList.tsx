@@ -1,13 +1,13 @@
 import PageView from '@/components/PageView'
 import api from '@/api/api'
 import type { Requirement } from '@/util/type'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { Button, Flex, Input, Table } from 'antd'
 import { useEffect, useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { EditFilled, SearchOutlined } from '@ant-design/icons'
 import NiceModal from '@ebay/nice-modal-react'
-import RequirementEditModal from './components/RequirementEditModal'
+import RequirementModal from './components/RequirementModal'
 
 const ExtraClass = createGlobalStyle`
   .tableRow {
@@ -41,7 +41,6 @@ const EditBtn = styled(EditFilled)`
 `
 
 export default () => {
-  const nav = useNavigate()
   const [searchKey, setSearchKey] = useState('')
   const [data, setData] = useState<Requirement[]>([])
   const [loading, setLoading] = useState(false)
@@ -98,7 +97,19 @@ export default () => {
             onChange={(e) => setEditValue(e.target.value)}
           />
         ) : (
-          <LinkBtn className="linkBtn" onClick={() => nav(`/project/${projectUid}/requirement/${record.Uid}`)}>
+          <LinkBtn
+            className="linkBtn"
+            onClick={() =>
+              NiceModal.show(RequirementModal, {
+                projectUid: projectUid,
+                requirementUid: record.Uid,
+                onSubmit: () => {
+                  queryData(page, pageSize)
+                },
+              })
+            }
+            //  onClick={() => nav(`/requirement/${record.Uid}`)}
+          >
             {record.Title}
             <EditBtn
               className="editBtn"
@@ -122,7 +133,7 @@ export default () => {
         <Button
           type="primary"
           onClick={() =>
-            NiceModal.show(RequirementEditModal, {
+            NiceModal.show(RequirementModal, {
               projectUid: projectUid,
               onClose: () => {
                 queryData(page, pageSize)
@@ -139,7 +150,7 @@ export default () => {
           onChange={(e) => changeSearchKey(e.target.value)}
           style={{ width: '400px' }}
           allowClear
-          placeholder="搜索标题"
+          placeholder="搜索需求标题"
         />
       </Flex>
       <Table<Requirement>
